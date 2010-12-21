@@ -20,7 +20,7 @@
 $image = file_get_contents('php://input');
 
 if ($image == '') {
-    $this_url = (isset($_SERVER["HTTPS"]) ? 'https' : 'http').'://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
+    $this_url = (isset($_SERVER["HTTPS"]) ? 'https' : 'http').'://'.(isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'].':'.$_SERVER['PHP_AUTH_PW'].'@' : '').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     $upload_url = 'data:application/x-image-upload,'.rawurlencode($this_url);
     echo '<a href="'.$upload_url.'">ImageUpload</a>';
     echo '<textarea style="width: 90%; height: 10em;" onchange="document.getElementById(\'content\').innerHTML = this.value"></textarea>';
